@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema id="org.gnome.shell.extensions.additional-workspace-shortcuts" path="/org/gnome/shell/extensions/additional-workspace-shortcuts/">
+        <key type="as" name="switch-between-last-workspaces">
+            <default><![CDATA[['<Alt>Escape']]]></default>
+            <summary>Switch between last two workspaces</summary>
+        </key>
+        <key type="as" name="switch-to-empty-workspace">
+            <default><![CDATA[['<Alt>f']]]></default>
+            <summary>Switch to first empty workspace</summary>
+        </key>
+    </schema>
+</schemalist>

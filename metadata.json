@@ -1,0 +1,1 @@
+{"name": "Additional Workspace Shortcuts", "description": "Add shortcuts to switch between last used workspaces and to find an empty workspace", "uuid": "Additional_Workspace_Shortcuts@denis.voskvitsov.gmail.com", "settings-schema": "org.gnome.shell.extensions.additional-workspace-shortcuts", "shell-version": ["3.28.1"]}
