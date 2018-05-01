@@ -3,7 +3,7 @@ This gnome-shell extension adds useful shortcuts to work with workspaces more ef
 
 
 # Default shortcuts
-`Alt-Escape` switches betweeb last used workspaces
+`Alt-Escape` switches between last used workspaces
 
 `Alt-f` switches to first empty workspace
 
