@@ -2,11 +2,11 @@ const St = imports.gi.St;
 const Meta = imports.gi.Meta;
 const Main = imports.ui.main;
 const Shell = imports.gi.Shell;
-const ExtensionUtils = imports.misc.extensionUtils;
 
+const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
-
+const Utils = Me.imports.util;
 
 let _lastWsCbId, _lastWsId = [];
 let settings;
@@ -17,12 +17,12 @@ function init() {
 }
 
 function _switchWorkspace() {
-    let _currentWorkspace = global.screen.get_active_workspace().index();
+    let _currentWorkspace = Utils.DisplayWrapper.getWorkspaceManager().get_active_workspace().index();
     if (_lastWsId.length > 1) {
         _lastWsId.pop(); // current ws
         let lastWs = _lastWsId.pop();  // previous ws
         _lastWsId.push(_currentWorkspace); // push current ws back
-        let metaWorkspace = global.screen.get_workspace_by_index(lastWs);  // switch to previous
+        let metaWorkspace = Utils.DisplayWrapper.getWorkspaceManager().get_workspace_by_index(lastWs);  // switch to previous
         metaWorkspace.activate(global.get_current_time());
     }
 }
@@ -30,8 +30,8 @@ function _switchWorkspace() {
 function _findEmptyWorkspace() {
     let metaWorkspace;
 
-    for (let i=0; i < global.screen.n_workspaces; i++) {
-        metaWorkspace = global.screen.get_workspace_by_index(i);
+    for (let i=0; i < Utils.DisplayWrapper.getWorkspaceManager().n_workspaces; i++) {
+        metaWorkspace = Utils.DisplayWrapper.getWorkspaceManager().get_workspace_by_index(i);
         if (metaWorkspace.list_windows().length == 0) {
             metaWorkspace.activate(global.get_current_time());
             break;
@@ -40,12 +40,12 @@ function _findEmptyWorkspace() {
 }
 
 function onWorkspaceSwitched() {
-    let _currentWorkspace = global.screen.get_active_workspace().index();
+    let _currentWorkspace = Utils.DisplayWrapper.getWorkspaceManager().get_active_workspace().index();
     _lastWsId.push(_currentWorkspace);
 }
 
 function enable() {
-    _lastWsCbId = global.screen.connect('workspace-switched', onWorkspaceSwitched);
+    _lastWsCbId = Utils.DisplayWrapper.getWorkspaceManager().connect('workspace-switched', onWorkspaceSwitched);
 
     Main.wm.addKeybinding("switch-between-last-workspaces",
         settings,
@@ -54,7 +54,7 @@ function enable() {
         function(display, screen, window, binding) {
             _switchWorkspace();
         }
-    );
+    ); 
 
     Main.wm.addKeybinding("switch-to-empty-workspace",
         settings,
